@@ -798,7 +798,6 @@ const Chat = () => {
                                     disabled={disabledButton()}
                                     aria-label="Publish to news feed button"
                                 />
-                        <HistoryButton  >Test</HistoryButton>
                     </div>
                     {/* Citation Panel */}
                     {messages && messages.length > 0 && isCitationPanelOpen && activeCitation && (
