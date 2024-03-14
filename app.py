@@ -25,11 +25,11 @@ from backend.utils import format_as_ndjson, format_stream_response, generateFilt
 bp = Blueprint("routes", __name__, static_folder="static", template_folder="static")
 
 # UI configuration (optional)
-UI_TITLE = os.environ.get("UI_TITLE") or "Gen AI Explorer - ChatGPT "
+UI_TITLE = os.environ.get("UI_TITLE") or "GenAIEXplorers"
 UI_LOGO = os.environ.get("UI_LOGO")
 UI_CHAT_LOGO = os.environ.get("UI_CHAT_LOGO")
-UI_CHAT_TITLE = os.environ.get("UI_CHAT_TITLE") or "Gen AI Explorer - AI Summarizer"
-UI_CHAT_DESCRIPTION = os.environ.get("UI_CHAT_DESCRIPTION") or "Gen AI Exporers chatbot is your Summarizer agent"
+UI_CHAT_TITLE = os.environ.get("UI_CHAT_TITLE") or "GenAIEXplorers - AI Summarizer"
+UI_CHAT_DESCRIPTION = os.environ.get("UI_CHAT_DESCRIPTION") or "GenAIEXplorers chatbot is your smart Summarizer agent, tuned for AI topics"
 UI_FAVICON = os.environ.get("UI_FAVICON") or "/favicon.ico"
 UI_SHOW_SHARE_BUTTON = os.environ.get("UI_SHOW_SHARE_BUTTON", "true").lower() == "true"
 
