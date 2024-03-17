@@ -266,6 +266,8 @@ def init_openai_client(use_data=SHOULD_USE_DATA):
 
 
 def init_cosmosdb_client():
+    logging.debug("Trying to get into initialize cosmos db now  : " )
+
     cosmos_conversation_client = None
     if CHAT_HISTORY_ENABLED:
         try:
@@ -273,15 +275,25 @@ def init_cosmosdb_client():
 
             if not AZURE_COSMOSDB_ACCOUNT_KEY:
                 credential = DefaultAzureCredential()
+                logging.debug("Credential is default : " ,credential)
             else:
                 credential = AZURE_COSMOSDB_ACCOUNT_KEY
+                logging.debug("Credential is account key : " ,credential)
 
+            logging.debug("Trying to initialize cosmos db now  : " )
+            try:
+                cosmos_conversation_client = CosmosClient({Az}, credential)
+                database = cosmos_conversation_client.create_database_if_not_exists(id=AZURE_COSMOSDB_DATABASE)
+                print(f"Database created or returned: {database.id}")
+
+            except CosmosHttpResponseError:
+                print("Request to the Azure Cosmos database service failed.")
             cosmos_conversation_client = CosmosConversationClient(
                 cosmosdb_endpoint=cosmos_endpoint, 
                 credential=credential, 
                 database_name=AZURE_COSMOSDB_DATABASE,
                 container_name=AZURE_COSMOSDB_CONVERSATIONS_CONTAINER,
-                enable_message_feedback=AZURE_COSMOSDB_ENABLE_FEEDBACK
+                enable_message_feedback=True
             )
         except Exception as e:
             logging.exception("Exception in CosmosDB initialization", e)

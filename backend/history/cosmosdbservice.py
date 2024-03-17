@@ -1,3 +1,4 @@
+import logging
 import uuid
 from datetime import datetime
 from azure.cosmos.aio import CosmosClient
@@ -11,6 +12,8 @@ class CosmosConversationClient():
         self.database_name = database_name
         self.container_name = container_name
         self.enable_message_feedback = enable_message_feedback
+        logging.debug("Cosmos connection started")
+
         try:
             self.cosmosdb_client = CosmosClient(self.cosmosdb_endpoint, credential=credential)
         except exceptions.CosmosHttpResponseError as e:
@@ -18,14 +21,22 @@ class CosmosConversationClient():
                 raise ValueError("Invalid credentials") from e
             else:
                 raise ValueError("Invalid CosmosDB endpoint") from e
+        logging.debug("Cosmos connection done")
 
         try:
+            logging.debug("Cosmos db get init")
             self.database_client = self.cosmosdb_client.get_database_client(database_name)
+            logging.debug("Cosmos db get done")
+
         except exceptions.CosmosResourceNotFoundError:
             raise ValueError("Invalid CosmosDB database name") 
         
         try:
+            logging.debug("Cosmos container get init")
+
             self.container_client = self.database_client.get_container_client(container_name)
+            logging.debug("Cosmos container get done")
+           
         except exceptions.CosmosResourceNotFoundError:
             raise ValueError("Invalid CosmosDB container name") 
         
@@ -35,9 +46,10 @@ class CosmosConversationClient():
             return False, "CosmosDB client not initialized correctly"
             
         try:
+            logging.debug("Cosmos dbendpoint get init")
             database_info = await self.database_client.read()
-        except:
-            return False, f"CosmosDB database {self.database_name} on account {self.cosmosdb_endpoint} not found"
+        except exceptions.Any as e :
+            return False, f"CosmosDB database {self.database_name} on account {self.cosmosdb_endpoint} not found" + e
         
         try:
             container_info = await self.container_client.read()
