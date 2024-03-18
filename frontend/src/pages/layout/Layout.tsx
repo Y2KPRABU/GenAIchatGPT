@@ -53,8 +53,8 @@ const Layout = () => {
             setShowHistoryLabel("Show history")
           } else {
             setShareLabel("Share")
-            setHideHistoryLabel("Hide chat history")
-            setShowHistoryLabel("Show chat history")
+            setHideHistoryLabel("Hide AI Feeds")
+            setShowHistoryLabel("AI Feeds")
           }
         };
     

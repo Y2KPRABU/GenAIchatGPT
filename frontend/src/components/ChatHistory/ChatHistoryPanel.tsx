@@ -88,15 +88,15 @@ export function ChatHistoryPanel(props: ChatHistoryPanelProps) {
         <section className={styles.container} data-is-scrollable aria-label={"chat history panel"}>
             <Stack horizontal horizontalAlign='space-between' verticalAlign='center' wrap aria-label="chat history header">
                 <StackItem>
-                    <Text role="heading" aria-level={2} style={{ alignSelf: "center", fontWeight: "600", fontSize: "18px", marginRight: "auto", paddingLeft: "20px" }}>Chat history</Text>
+                    <Text role="heading" aria-level={2} style={{ alignSelf: "center", fontWeight: "600", fontSize: "18px", marginRight: "auto", paddingLeft: "20px" }}>AI Feeds Summary</Text>
                 </StackItem>
                 <Stack verticalAlign="start">
                     <Stack horizontal styles={commandBarButtonStyle}>
                         <CommandBarButton
                             iconProps={{ iconName: 'More' }}
-                            title={"Clear all chat history"}
+                            title={"Clear all feed history"}
                             onClick={onShowContextualMenu}
-                            aria-label={"clear all chat history"}
+                            aria-label={"clear all feed history"}
                             styles={commandBarStyle}
                             role="button"
                             id="moreButton"
