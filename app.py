@@ -281,19 +281,19 @@ def init_cosmosdb_client():
                 logging.debug("Credential is account key : " ,credential)
 
             logging.debug("Trying to initialize cosmos db now  : " )
-            try:
-                cosmos_conversation_client = CosmosClient({Az}, credential)
-                database = cosmos_conversation_client.create_database_if_not_exists(id=AZURE_COSMOSDB_DATABASE)
-                print(f"Database created or returned: {database.id}")
+            #try:
+                #cosmos_conversation_client = CosmosClient({Az}, credential)
+                #database = cosmos_conversation_client.create_database_if_not_exists(id=AZURE_COSMOSDB_DATABASE)
+                #print(f"Database created or returned: {database.id}")
 
-            except CosmosHttpResponseError:
-                print("Request to the Azure Cosmos database service failed.")
+            #except CosmosHttpResponseError:
+                #print("Request to the Azure Cosmos database service failed.")
             cosmos_conversation_client = CosmosConversationClient(
                 cosmosdb_endpoint=cosmos_endpoint, 
                 credential=credential, 
                 database_name=AZURE_COSMOSDB_DATABASE,
                 container_name=AZURE_COSMOSDB_CONVERSATIONS_CONTAINER,
-                enable_message_feedback=True
+                enable_message_feedback=False
             )
         except Exception as e:
             logging.exception("Exception in CosmosDB initialization", e)
